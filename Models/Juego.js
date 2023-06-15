@@ -9,7 +9,7 @@ const JuegoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  price: {
+  actual_price: {
     type: String,
     required: true,
   },
@@ -17,7 +17,7 @@ const JuegoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  timestamps: {
+  fecha_hora: {
     type: String,
     required: true,
   },
