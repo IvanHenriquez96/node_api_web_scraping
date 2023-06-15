@@ -76,7 +76,7 @@ const scrapper = async (url_game) => {
 
     let { title, actual_price, url_image } = data;
 
-    let fecha_hora = fecha_hora_actual();
+    let fecha_hora = await fecha_hora_actual();
 
     const nuevoJuego = {
       title,
@@ -136,14 +136,17 @@ const actualizar_precios = async (req, res) => {
 
   for (const juego of juegos) {
     let data = await scrapper(juego.url_game);
-    juego.actual_price = await data.actual_price;
+    console.log("test", data);
+
+    juego.actual_price = data.actual_price;
     juego.fecha_hora = data.fecha_hora;
     juego.prices = [
       ...juego.prices,
       { actual_price: data.actual_price, fecha_hora: data.fecha_hora },
     ];
-
+    console.log("se va a guardar");
     juego.save();
+    console.log("se guardó");
   }
 
   res.status(200).json({ msg: "intenta actuaklizar precios" });
