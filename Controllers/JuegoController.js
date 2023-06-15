@@ -136,8 +136,7 @@ const actualizar_precios = async (req, res) => {
 
   for (const juego of juegos) {
     let data = await scrapper(juego.url_game);
-    console.log({ data });
-    juego.actual_price = data.actual_price;
+    juego.actual_price = await data.actual_price;
     juego.fecha_hora = data.fecha_hora;
     juego.prices = [
       ...juego.prices,
