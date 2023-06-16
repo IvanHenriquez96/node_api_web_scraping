@@ -74,7 +74,7 @@ const scrapper = async (url_game) => {
 
     //Fin Scrapping
 
-    let { title, actual_price, url_image } = data;
+    let { title, actual_price, url_image } = await data;
 
     let fecha_hora = await fecha_hora_actual();
 
