@@ -60,7 +60,13 @@ const scrapper = async (url_game) => {
     await page.goto(url_game);
 
     //espera que cargue toda la pagina
-    await page.waitForNavigation();
+    // await page.waitForNavigation();
+
+    //espera a que carguen los siguientes elementos
+    // Esperar a que aparezca un selector específico en la página
+    await page.waitForSelector("span.base");
+    await page.waitForSelector("span.price");
+    await page.waitForSelector("img.fotorama__img");
 
     let data = await page.evaluate(() => {
       let title = document.querySelector("span.base").textContent.trim();
