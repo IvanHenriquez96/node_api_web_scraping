@@ -59,6 +59,9 @@ const scrapper = async (url_game) => {
     });
     await page.goto(url_game);
 
+    //espera que cargue toda la pagina
+    await page.waitForNavigation();
+
     let data = await page.evaluate(() => {
       let title = document.querySelector("span.base").textContent.trim();
       let actual_price = document.querySelector("span.price").textContent.trim();
