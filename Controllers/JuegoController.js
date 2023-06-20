@@ -24,7 +24,7 @@ const createJuego = async (req, res) => {
   } catch (error) {
     res.status(500).json({ msg: error });
 
-    console.log("Error al agregar juego", error);
+    console.error("Error al agregar juego", error);
   }
 };
 
@@ -33,7 +33,7 @@ const updateJuego = async (req, res) => {
     const juego = await Juego.findByIdAndUpdate(req.params.id, req.body);
     res.status(200).json({ msg: "Juego Actualizado" });
   } catch (error) {
-    console.log("Error al actualizar juego", error);
+    console.error("Error al actualizar juego", error);
   }
 };
 
@@ -42,7 +42,7 @@ const deleteJuego = async (req, res) => {
     await Juego.findByIdAndDelete(req.params.id);
     res.status(200).json({ msg: "Juego Eliminado" });
   } catch (error) {
-    console.log("Error al eliminar juego", error);
+    console.error("Error al eliminar juego", error);
   }
 };
 
@@ -89,7 +89,7 @@ const scrapper = async (url_game) => {
     console.log("juego scrapeado", nuevoJuego);
     return nuevoJuego;
   } catch (error) {
-    console.log("error al scrapear", error);
+    console.error("error al scrapear", error);
   }
 };
 
@@ -112,7 +112,7 @@ const scraping_url = async (req, res) => {
     console.log("juego agregado a BDD :", data);
     res.status(200).json({ msg: "Juego Agregado" });
   } catch (error) {
-    console.log("error al agregar a BDD", error);
+    console.error("error al agregar a BDD", error);
   }
 };
 
