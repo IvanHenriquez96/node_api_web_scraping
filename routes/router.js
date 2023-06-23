@@ -9,12 +9,12 @@ router.get("/", HomeController.inicio);
 router.get("/ruta_protegida", authMiddleware, HomeController.inicio);
 
 router.get("/api/", JuegoController.readJuegos);
-router.get("/api/:id", JuegoController.findJuego);
-router.post("/api/", JuegoController.createJuego);
+// router.get("/api/:id", JuegoController.findJuego);
+router.post("/api/", JuegoController.agregarJuego);
 router.patch("/api/:id", JuegoController.updateJuego);
 router.delete("/api/:id", JuegoController.deleteJuego);
 
-router.post("/api/scraping_url", JuegoController.scraping_url);
+// router.post("/api/scraping_url", JuegoController.scraping_url);
 router.post("/api/actualizar_precios", JuegoController.actualizar_precios);
 
 router.post("/login", AuthController.login);

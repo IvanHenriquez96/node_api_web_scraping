@@ -9,18 +9,18 @@ const readJuegos = async (req, res) => {
   });
 };
 
-const findJuego = async (req, res) => {
-  const juego = await Juego.findById(req.params.id);
-  res.json(juego);
-};
+// const findJuego = async (req, res) => {
+//   const juego = await Juego.findById(req.params.id);
+//   res.json(juego);
+// };
 
-const createJuego = async (req, res) => {
+const createJuego = async (juego) => {
   console.log("entro a create");
-  const newJuego = new Juego(req.body);
+  const newJuego = new Juego(juego);
 
   try {
     await newJuego.save();
-    res.status(200).json({ msg: "Juego Agregado" });
+    console.log({ msg: "Juego Agregado" });
   } catch (error) {
     res.status(500).json({ msg: error });
 
@@ -102,28 +102,28 @@ const scrapper = async (url_game) => {
   }
 };
 
-const scraping_url = async (req, res) => {
-  let nuevoJuego = await scrapper(req.body.url_game);
+// const scraping_url = async (req, res) => {
+//   let nuevoJuego = await scrapper(req.body.url_game);
 
-  //Va a la URL donde se agregará a la BDD
+//   //Va a la URL donde se agregará a la BDD
 
-  try {
-    const opciones = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(nuevoJuego),
-    };
+//   try {
+//     const opciones = {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(nuevoJuego),
+//     };
 
-    const response = await fetch(process.env.URL_API + "/api/", opciones);
-    const data = await response.json();
-    console.log("juego agregado a BDD :", data);
-    res.status(200).json({ msg: "Juego Agregado" });
-  } catch (error) {
-    console.error("error al agregar a BDD", error);
-  }
-};
+//     const response = await fetch(process.env.URL_API + "/api/", opciones);
+//     const data = await response.json();
+//     console.log("juego agregado a BDD :", data);
+//     res.status(200).json({ msg: "Juego Agregado" });
+//   } catch (error) {
+//     console.error("error al agregar a BDD", error);
+//   }
+// };
 
 const fecha_hora_actual = () => {
   const now = new Date();
@@ -161,12 +161,37 @@ const actualizar_precios = async (req, res) => {
   res.status(200).json({ msg: "intenta actuaklizar precios" });
 };
 
+const agregarJuego = async (req, res) => {
+  try {
+    let { url_game } = req.body;
+    let url = new URL(url_game);
+
+    if (url.hostname == "www.weplay.cl") {
+      let juego = await scrapper(url_game);
+
+      await createJuego(juego);
+
+      res.status(200).json({
+        msg: "Juego Scrapeado satisfactoriamente, se agregó el siguiente juego",
+        juego,
+      });
+    } else {
+      res.status(500).json("la URL del producto no es compatible");
+    }
+
+    return res.json({ data: url.hostname });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   readJuegos,
-  findJuego,
+  // findJuego,
   createJuego,
   updateJuego,
   deleteJuego,
-  scraping_url,
+  // scraping_url,
   actualizar_precios,
+  agregarJuego,
 };
