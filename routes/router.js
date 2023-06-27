@@ -9,7 +9,7 @@ router.get("/", HomeController.inicio);
 router.get("/ruta_protegida", authMiddleware, HomeController.inicio);
 
 router.get("/api/", JuegoController.readJuegos);
-// router.get("/api/:id", JuegoController.findJuego);
+router.get("/api/:id", JuegoController.findJuego);
 router.post("/api/", JuegoController.agregarJuego);
 router.patch("/api/:id", JuegoController.updateJuego);
 router.delete("/api/:id", JuegoController.deleteJuego);

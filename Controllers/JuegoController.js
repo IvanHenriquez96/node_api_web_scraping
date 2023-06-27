@@ -9,10 +9,10 @@ const readJuegos = async (req, res) => {
   });
 };
 
-// const findJuego = async (req, res) => {
-//   const juego = await Juego.findById(req.params.id);
-//   res.json(juego);
-// };
+const findJuego = async (req, res) => {
+  const juego = await Juego.findById(req.params.id);
+  res.json(juego);
+};
 
 const createJuego = async (juego) => {
   console.log("entro a create");
@@ -192,7 +192,7 @@ const agregarJuego = async (req, res) => {
 
 module.exports = {
   readJuegos,
-  // findJuego,
+  findJuego,
   createJuego,
   updateJuego,
   deleteJuego,
