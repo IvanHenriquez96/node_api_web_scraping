@@ -86,6 +86,8 @@ const scrapper = async (url_game) => {
     let { title, actual_price, url_image } = await data;
 
     let fecha_hora = await fecha_hora_actual();
+    let url_formato = new URL(url_game);
+    let tienda = url_formato.hostname;
 
     const nuevoJuego = {
       title,
@@ -94,6 +96,7 @@ const scrapper = async (url_game) => {
       actual_price,
       fecha_hora,
       prices: [{ actual_price, fecha_hora }],
+      tienda,
     };
     console.log("juego scrapeado", nuevoJuego);
     return nuevoJuego;
