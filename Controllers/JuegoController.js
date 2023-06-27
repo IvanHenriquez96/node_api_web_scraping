@@ -175,15 +175,13 @@ const agregarJuego = async (req, res) => {
 
       await createJuego(juego);
 
-      res.status(200).json({
+      return res.status(200).json({
         msg: "Juego Scrapeado satisfactoriamente, se agregó el siguiente juego",
         juego,
       });
     } else {
-      res.status(500).json("la URL del producto no es compatible");
+      return res.status(500).json("la URL del producto no es compatible");
     }
-
-    return res.json({ data: url.hostname });
   } catch (error) {
     res.status(500).json(error);
   }
