@@ -24,6 +24,9 @@ const JuegoSchema = new mongoose.Schema({
   prices: {
     type: Array,
   },
+  tienda: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Juego", JuegoSchema);
