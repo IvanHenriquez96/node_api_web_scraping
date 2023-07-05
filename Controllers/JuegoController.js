@@ -70,7 +70,9 @@ const scrapper = async (url_game) => {
 
     let data = await page.evaluate(() => {
       let title = document.querySelector("span.base").textContent.trim();
-      let actual_price = document.querySelector("span.price").textContent.trim();
+      let actual_price = document
+        .querySelector('span[data-price-type="finalPrice"] span.price')
+        .textContent.trim();
       let url_image = document
         .querySelector("img.fotorama__img")
         .getAttribute("src")
