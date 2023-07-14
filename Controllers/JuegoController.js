@@ -152,7 +152,11 @@ const actualizar_precios = async (req, res) => {
     let data = await scrapper(juego.url_game);
     // console.log("test", data);
 
-    if (data.prices.actual_price !== juego.prices.actual_price) {
+    // if (data.prices.actual_price !== juego.prices.actual_price) {
+    if (data.actual_price !== juego.actual_price) {
+      console.log(
+        `precio antiguo: ${juego.actual_price}  precio nuevo: ${data.actual_price}`
+      );
       juego.actual_price = data.actual_price;
       juego.fecha_hora = data.fecha_hora;
 
